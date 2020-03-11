@@ -12,16 +12,19 @@
           dense
           return-object="Magasin"
         ></v-select>
-        <v-select
-          v-model="Produit"
-          :items="LesProduits"
-          item-text="libelle"
-          item-value="libelle"
-          label="Choix produit"
-          dense
-          outlined
-          return-object="Produit"
-        ></v-select>
+        <div>
+          <v-select
+            v-model="Produit"
+            :items="LesProduits"
+            item-text="libelle"
+            item-value="libelle"
+            label="Choix produit"
+            dense
+            outlined
+            return-object="Produit"
+          ></v-select>
+          <v-text-field v-model="quantitePdt" value="1" prefix="Quantité : "></v-text-field>
+        </div>
         <v-select
           v-model="Acheteur"
           :items="LesAcheteurs"
@@ -55,6 +58,7 @@ export default {
   data: () => ({
     Magasin: null,
     Produit: null,
+    quantitePdt: 1,
     Acheteur: null,
     loader: null,
     loading: false,
@@ -174,6 +178,7 @@ export default {
   methods: {
     alertMessage() {
       this.ajoutPanier = true;
+      
       this.MessageAjoutPanier =
         "Bonjour Monsieur " +
         this.Acheteur.nom +
@@ -184,7 +189,7 @@ export default {
         ", le produit " +
         this.Produit.libelle +
         " à " +
-        this.Produit.prix +
+        this.Produit.prix * this.quantitePdt +
         "€";
     }
   },
