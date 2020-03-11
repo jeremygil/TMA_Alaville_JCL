@@ -6,6 +6,7 @@
           v-model="Magasin"
           :items="LesMagasins"
           item-text="libelle"
+          item-value="numero"
           label="Choix magasin"
           outlined
           dense
@@ -14,6 +15,7 @@
           v-model="Produit"
           :items="LesProduits"
           item-text="libelle"
+          item-value="id"
           label="Choix produit"
           dense
           outlined
@@ -21,7 +23,8 @@
         <v-select
           v-model="Acheteur"
           :items="LesAcheteurs"
-          item-text="libelle"
+          item-text="nom"
+          item-value="id"
           label="Choix acheteur"
           outlined
           dense
@@ -78,15 +81,71 @@ export default {
       {
         id: 3,
         libelle: "Sandwich",
-        prix: "2.5"
+        prix: "2"
       },
       {
         id: 4,
         libelle: "Pepsi",
+        prix: "1.4"
+      },
+      {
+        id: 5,
+        libelle: "Tomate",
         prix: "1.5"
+      },
+      {
+        id: 6,
+        libelle: "Brocolis",
+        prix: "0.8"
+      },
+      {
+        id: 7,
+        libelle: "Chocolat",
+        prix: "1.8"
+      },
+      {
+        id: 8,
+        libelle: "Fraise",
+        prix: "1.1"
+      },
+      {
+        id: 9,
+        libelle: "Chou",
+        prix: "1.0"
+      },
+      {
+        id: 10,
+        libelle: "Carotte",
+        prix: "0.9"
       }
     ],
-    LesAcheteurs: []
+    LesAcheteurs: [
+      {
+        id: 1,
+        nom: "robert",
+        prenom: "vincent"
+      },
+      {
+        id: 2,
+        nom: "Jorge",
+        prenom: "Marc"
+      },
+      {
+        id: 3,
+        nom: "Luc",
+        prenom: "Thomas"
+      },
+      {
+        id: 4,
+        nom: "Harris",
+        prenom: "vincent"
+      },
+      {
+        id: 5,
+        nom: "John",
+        prenom: "Michael"
+      }
+    ]
   }),
   created() {
     this.$vuetify.theme.light = true;
