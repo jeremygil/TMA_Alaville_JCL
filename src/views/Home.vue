@@ -6,30 +6,41 @@
           v-model="Magasin"
           :items="LesMagasins"
           item-text="libelle"
-          item-value="numero"
+          item-value="libelle"
           label="Choix magasin"
           outlined
           dense
+          return-object="Magasin"
         ></v-select>
         <v-select
           v-model="Produit"
           :items="LesProduits"
           item-text="libelle"
-          item-value="id"
+          item-value="libelle"
           label="Choix produit"
           dense
           outlined
+          return-object="Produit"
         ></v-select>
         <v-select
           v-model="Acheteur"
           :items="LesAcheteurs"
           item-text="nom"
-          item-value="id"
+          item-value="nom"
           label="Choix acheteur"
           outlined
+          return-object="Acheteur"
           dense
         ></v-select>
+        <v-btn
+          class="ma-2"
+          :loading="loading"
+          :disabled="loading"
+          color="secondary"
+          @click="loader = 'loading', alertMessage()"
+        >Ajouter Panier</v-btn>
       </v-container>
+      <p v-if="ajoutPanier">{{MessageAjoutPanier}}</p>
     </v-content>
   </v-app>
 </template>
@@ -45,6 +56,10 @@ export default {
     Magasin: null,
     Produit: null,
     Acheteur: null,
+    loader: null,
+    loading: false,
+    ajoutPanier: false,
+    MessageAjoutPanier: "",
     LesMagasins: [
       {
         numero: 1,
@@ -156,7 +171,33 @@ export default {
     }
   },
   mounted() {},
-  methods: {}
+  methods: {
+    alertMessage() {
+      this.ajoutPanier = true;
+      this.MessageAjoutPanier =
+        "Bonjour Monsieur " +
+        this.Acheteur.nom +
+        " " +
+        this.Acheteur.prenom +
+        ", vous avez acheter sur le magasin de " +
+        this.Magasin.libelle +
+        ", le produit " +
+        this.Produit.libelle +
+        " à " +
+        this.Produit.prix +
+        "€";
+    }
+  },
+  watch: {
+    loader() {
+      const l = this.loader;
+      this[l] = !this[l];
+
+      setTimeout(() => (this[l] = false), 3000);
+
+      this.loader = null;
+    }
+  }
 };
 </script>
 
@@ -179,5 +220,41 @@ html {
 body {
   padding: 1rem;
   overflow: auto;
+}
+.custom-loader {
+  animation: loader 1s infinite;
+  display: flex;
+}
+@-moz-keyframes loader {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes loader {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@-o-keyframes loader {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes loader {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 </style>
